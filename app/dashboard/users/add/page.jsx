@@ -1,12 +1,13 @@
 import React from 'react'
 import styles from "@/app/ui/dashboard/products/addProduct/addProduct.module.css"
 import { fetchUsers } from '@/app/lib/data';
+import { addUser } from '@/app/lib/actions';
 const AddUser = async() => {
   const user = await fetchUsers();
   console.log(user)
   return (
-    <div className={styles.container}>
-      <form  className={styles.form}>
+    <div  className={styles.container}>
+      <form action={addUser} className={styles.form}>
         <input type="text" placeholder="username" name="username" required />
         <input type="email" placeholder="email" name="email" required />
         <input
