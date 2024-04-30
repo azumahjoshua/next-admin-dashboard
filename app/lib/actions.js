@@ -1,10 +1,12 @@
+"use server"
 import { revalidatePath } from "next/cache"
 import { User,Product } from "./models"
 import { connectToDB } from "./utils"
 import { redirect } from "next/navigation"
 import bcrypt from "bcrypt"
+import {signIn} from "../auth"
 export const addUser = async(fornData)=>{
-    "use server"
+    
     const {username,email,password,phone,address,isAdmin,isActive} = Object.fromEntries(fornData)
     try {
         connectToDB();
@@ -29,7 +31,7 @@ export const addUser = async(fornData)=>{
 }
 
 export const updateUser = async(fornData)=>{
-    "use server"
+  
     const {id,username,email,password,phone,address,isAdmin,isActive} = Object.fromEntries(fornData)
     try {
         connectToDB();
@@ -57,7 +59,7 @@ export const updateUser = async(fornData)=>{
     redirect('/dashboard/users')
 }
 export const addProduct = async(fornData)=>{
-    "use server"
+    
     const {title,desc,price,stock,color,size}=Object.fromEntries(fornData);
     try {
         connectToDB()
@@ -109,7 +111,7 @@ export const updateProduct = async (formData) => {
   };
 
 export const deleteProduct = async(fornData)=>{
-    "use server"
+
     const {id}=Object.fromEntries(fornData);
     try {
         connectToDB()
@@ -123,7 +125,7 @@ export const deleteProduct = async(fornData)=>{
 }
 
 export const deleteUser = async(fornData)=>{
-    "use server"
+    
     const {id}=Object.fromEntries(fornData);
     try {
         connectToDB()
@@ -136,3 +138,15 @@ export const deleteUser = async(fornData)=>{
     // redirect('/dashboard/products')
 }
 
+export const authenticate = async (prevState, formData) => {
+    const { username, password } = Object.fromEntries(formData);
+  
+    try {
+      await signIn("credentials", { username, password });
+    } catch (err) {
+      if (err.message.includes("CredentialsSignin")) {
+        return "Wrong Credentials";
+      }
+      throw err;
+    }
+  };

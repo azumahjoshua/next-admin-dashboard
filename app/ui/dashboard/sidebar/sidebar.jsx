@@ -14,6 +14,7 @@ import {
   MdLogout,
 } from "react-icons/md";
 import MenuLink from './menuLink/menuLink';
+import auth from '@/app/auth';
 const menuItems = [
   {
     title: "Pages",
@@ -76,7 +77,9 @@ const menuItems = [
     ],
   },
 ];
-const Sidebar = () => {
+const Sidebar = async() => {
+  const session = await auth();
+  // console.log(session)
   return (
     <div className={styles.container}>
       <div>
