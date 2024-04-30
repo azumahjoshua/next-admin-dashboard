@@ -1,6 +1,9 @@
 import React from 'react'
 import styles from "@/app/ui/dashboard/products/addProduct/addProduct.module.css"
-const AddUser = () => {
+import { fetchUsers } from '@/app/lib/data';
+const AddUser = async() => {
+  const user = await fetchUsers();
+  console.log(user)
   return (
     <div className={styles.container}>
       <form  className={styles.form}>

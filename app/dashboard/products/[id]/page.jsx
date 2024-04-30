@@ -50,4 +50,3 @@ const SingleProduct= () => {
 }
 
 export default SingleProduct
-// W0FL3tS7WR2w7NDi  joshuaazumah6801 
